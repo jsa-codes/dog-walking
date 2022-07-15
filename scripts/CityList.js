@@ -1,14 +1,17 @@
-import { getWalkers } from './database.js';
-import { getCities } from './database.js';
 import { getWalkerCities } from './database.js';
+import { getCities } from './database.js';
+import { getWalkers } from './database.js';
 
 const cities = getCities();
 
 // walkers contains a copy of the exported array of "walkers" from the database
-// Not sure if I even need this now ❓
+// Not sure if I even need access to getWalkers now ❓
 // const walkers = getWalkers()
 
-// ➡️ This function creates an ordered list of City Names
+/* 
+➡️ WHAT DOES THIS FUNCTION DO?
+     - This function creates an ordered list of City Names 
+*/
 export const CityList = () => {
   let citiesHTML = '<ol>';
 
@@ -22,46 +25,49 @@ export const CityList = () => {
 };
 
 /* 
-    - This function will need the walker information. It will take (1) parameter
-    - Define a function that will get ALL objects in the walkerCities array that are for the walker that was clicked on. 
-    - It should RETURN an ARRAY of ALL matching objects.
+➡️ WHAT DOES THIS FUNCTION DO?
 */
-export const findWalkerCitiesByWalker = (walker) => {
+export const findWalkerCitiesByWalker = (walkerId) => {
   // Define an empty array to store all of the assignment objects
-  let assignments = [];
-//   walkerCities contains a copy of the array walkerCities found in database.js
-  const walkerCities = getWalkerCities();
+  let walkerAssignments = [];
+  //   walkerCities contains a copy of the array walkerCities found in database.js ⬅️ 👀
+  const allWalkerCities = getWalkerCities();
+  const walkers = getWalkers();
   // Iterate the array value of walkerCities
-  for (const assignment of walkerCities) {
-    // Check if the primary key of the walker equals the foreign key on the assignment
-    // IF it does then add the current object to the array of assignments
-    if (assignment.walkerId === walker.walkerId) {
-      assignments.push(walker);
+  for (const assignment of allWalkerCities) {
+    for (const walker of walkers) {
+      // Check if the primary key of the walker equals the foreign key on the assignment
+      // IF it does then add the current object to the array of assignments
+      if (assignment.walkerId === walker.id) {
+        walkerAssignments.push(assignment);
+      }
     }
   }
-  return assignments;
+  return walkerAssignments;
 };
 
+/* 
+➡️  WHAT DOES THIS FUNCTION DO?
+*/
 
-
-// ➡️ Define a function that builds a string of city names. Needs a parameter for assignments array.
+// Define a function that builds a string of city names. Needs a parameter for assignments array.
 //      The array walkerCities is aka - "Assignments"
-export const assignedCityNames = (assignments) => {
+export const assignedCityNames = (arrayOfAssignments) => {
   // Define an empty string that will get appended with the matching assignments array
   let cityNames = '';
 
-  // Iterate the array of assignment objects
-  for (const assignment of assignments) {
-    // For each assignment, iterate the cities array to find the match
+  //   WHAT IS THIS FUNCTION DOING❓❓❓❓
+  //          - It is looking for a match between the city's id and the assignment's city id
+ 
+  for (const assignment of arrayOfAssignments) {
+    // STEP 2) For each assignment, now iterate the cities array to find the match
     for (const city of cities) {
+      // IF the city id matches the assignment's city id
       if (city.id === assignment.cityId) {
-        cityNames += `$${city.name}`
+        cityNames = `${cityNames}, ${city.name}`;
       }
     }
   }
 
   return cityNames;
 };
-
-
-

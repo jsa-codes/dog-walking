@@ -1,0 +1,4 @@
+QUESTIONS:
+- What's the best way to keep track of functions that are being called in different modules?
+- How do you decide when to to invoke a function in the Global scope vs. Local scope   
+    

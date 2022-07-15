@@ -140,18 +140,20 @@ const database = {
   ],
 };
 
+// RETURNS a "copy" of the array of walker objects
 export const getWalkers = () => {
     return database.walkers.map(walker => ({ ...walker }))
 }
 
+// RETURNS a "copy" of the array of pet objects
 export const getPets = () => {
     return database.pets.map(pet => ({ ...pet }))
 }
-
+// RETURNS a "copy" of the array of cities objects
 export const getCities = () => {
     return database.cities.map(city => ({ ...city }))
 }
-
+// RETURNS a "copy" of the array of walker objects
 export const getWalkerCities = () => {
     return database.walkerCities.map((assignment) => ({ ...assignment }));
 }
