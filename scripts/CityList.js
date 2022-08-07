@@ -64,7 +64,7 @@ export const assignedCityNames = (arrayOfAssignments) => {
     for (const city of cities) {
       // IF the city id matches the assignment's city id
       if (city.id === assignment.cityId) {
-        cityNames = `${cityNames}, ${city.name}`;
+        cityNames = `${cityNames} ${city.name},`;
       }
     }
   }

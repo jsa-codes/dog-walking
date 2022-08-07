@@ -10,19 +10,16 @@ document.addEventListener('click', (clickEvent) => {
   const itemClicked = clickEvent.target;
   if (itemClicked.id.startsWith('walker')) {
     const [, walkerId] = itemClicked.id.split('--'); // Example = "walker--3" --> ["walker", "3"]
-
-    /* 
-    const itemId = itemClicked.id
-    console('itemId', itemId)
-    const parts = itemId.split('--')
-    console('parts', parts)
-    const walkerId = parts[1]
-    */
-
     //const [name, walkerId] = itemClicked.id.split('--') (["walker", "3"])
 
-    //const walkerArr = itemClicked.id.split('--')
-    //walkerArr[1]
+    /* 
+                            ⬇️ Another Way To Break It Down
+                            const itemId = itemClicked.id
+                            console('itemId', itemId)
+                            const parts = itemId.split('--')
+                            console('parts', parts)
+                            const walkerId = parts[1]
+                            */
 
     // "findWalkerCitiesByWalker" takes (1) parameter = walkerId (which is accessed from above)
     const walkerAssignmentsArray = findWalkerCitiesByWalker(walkerId);
@@ -35,7 +32,6 @@ document.addEventListener('click', (clickEvent) => {
     for (const walker of allWalkers) {
       if (walker.id === parseInt(walkerId)) {
         foundWalker = walker;
-        console.log(foundWalker);
       }
     }
     if (foundWalker) {
@@ -48,6 +44,7 @@ export const Walkers = () => {
   // Create an empty string with a <ul> inside of it
   let walkerHTML = '<ul>';
 
+  // Iterate the array of allWalkers
   for (const walker of allWalkers) {
     walkerHTML += `<li id="walker--${walker.id}">${walker.name}</li>`;
   }
